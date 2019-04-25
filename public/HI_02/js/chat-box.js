@@ -1,16 +1,8 @@
 (function ($) {
     // show chat box
     let chatBoxShow = false;
-    $('.chat-bubble').click(function(){
-        toogleChatIcon();
-        toogleChatbox();
-        chatBoxShow = !chatBoxShow;
-    });
+    $('.chat-bubble').click(toogleChatbox);
     function toogleChatbox() {
-        $('.chat-box').slideToggle('fast');
-    }
-
-    function toogleChatIcon(){
         if(chatBoxShow) {
             $.when(
                 $('.chat-icon.close').hide('scale', { direction: "both" }, 50).promise()
@@ -28,6 +20,8 @@
             $('.voice-call').animate({ left: -70 }, 'fast');
             $('.video-call').animate({ left: -140 }, 'fast');
         }
+        chatBoxShow = !chatBoxShow;
+        $('.chat-box').slideToggle('fast');
     }
 
     // display time when hover message
@@ -48,10 +42,10 @@
     function bindRemoveBtnHoverListener() {
         $('.file-preview .file').hover(
             function () {
-                $(this).find('.remove-file').css('display', 'table');
+                $(this).find('.remove-file').show();
             },
             function () {
-                $(this).find('.remove-file').css('display', 'none');
+                $(this).find('.remove-file').hide();
             }
         );
     }
@@ -88,7 +82,7 @@
                 let imgElm = $(`<img style="height: 50px" src="" alt="">`);
                 let fileInfoElm = $(`
                     <div class="file-info">
-                        <h6 class="file-ext">${ext}</h6>
+                        <h4 class="file-ext">${ext}</h4>
                         <p class="no-margin">${fileName}</p>
                     </div>
                 `);
@@ -201,7 +195,7 @@
         let loadingElm = replying();
         setTimeout(function() {
             loadingElm.remove();
-            reply(`<p>Bạn có thể click vào link sau để đặt lịch <a href="/booking-page-2" data-toggle="tooltip" title="Set appointment">14:30 29/4/2019 - Bác sĩ ABC - BV Chợ Rẫy</a></p>`);
+            reply(`<p>You can go to hospital at <a href="#" data-toggle="tooltip" title="Set appointment">14:30</a></p>`);
         }, 3000)
     })
 
